@@ -3,13 +3,30 @@
 
 Projeto de monitoramento de aplicações desenvolvido com Python, FastAPI, Docker, Docker Compose e Prometheus.
 
-O objetivo é construir uma aplicação capaz de disponibilizar métricas de funcionamento, verificar sua disponibilidade e permitir o acompanhamento de seu estado por meio de ferramentas de monitoramento.
+O Cloud Monitor é uma aplicação que permite acompanhar a disponibilidade de um serviço, consultar métricas de funcionamento e visualizar informações de monitoramento em um dashboard web próprio.
+
+O projeto foi desenvolvido como laboratório prático de estudos em DevOps, Cloud Operations, monitoramento e automação.
+
+## Dashboard
+
+O projeto possui uma interface web própria para visualizar o estado da aplicação e acompanhar suas métricas.
+
+O dashboard apresenta:
+
+- Status de disponibilidade do serviço.
+- Total de requisições recebidas.
+- Estado do monitoramento.
+- Gráfico de atividade das requisições.
+- Atualização automática dos indicadores a cada 5 segundos.
+
+A interface foi desenvolvida com HTML, CSS e JavaScript, consumindo os endpoints disponibilizados pela API FastAPI.
 
 ## Objetivos
 
 - Desenvolver uma API utilizando FastAPI.
-- Implementar um endpoint de verificação de saúde (*health check*).
+- Implementar um endpoint de verificação de saúde (health check).
 - Disponibilizar métricas para monitoramento.
+- Construir um dashboard de monitoramento.
 - Containerizar a aplicação com Docker.
 - Gerenciar serviços com Docker Compose.
 - Configurar o Prometheus para coletar métricas.
@@ -21,6 +38,9 @@ O objetivo é construir uma aplicação capaz de disponibilizar métricas de fun
 
 - Python 3.13
 - FastAPI
+- HTML5
+- CSS3
+- JavaScript
 - Pytest
 - HTTPX
 - Docker
@@ -33,8 +53,10 @@ O objetivo é construir uma aplicação capaz de disponibilizar métricas de fun
 
 O projeto possui dois serviços principais:
 
-1. **Cloud Monitor:** aplicação responsável por disponibilizar os endpoints e métricas.
+1. **Cloud Monitor:** aplicação responsável por disponibilizar os endpoints, métricas e dashboard.
 2. **Prometheus:** ferramenta responsável por coletar e consultar as métricas da aplicação.
+
+A interface web consulta os endpoints da API para apresentar informações atualizadas.
 
 ## Estrutura do projeto
 
@@ -50,6 +72,10 @@ cloud-monitor/
 │   └── runbook.md
 ├── prometheus/
 │   └── prometheus.yml
+├── static/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
 ├── tests/
 │   └── test_main.py
 ├── .gitignore
@@ -81,11 +107,22 @@ Inicie os serviços:
 docker compose up -d --build
 ```
 
-## Endpoints disponíveis
+## Acessando a aplicação
+
+Após iniciar os containers, os serviços estarão disponíveis localmente:
+
+| Serviço | Endereço |
+|---|---|
+| Dashboard Cloud Monitor | http://localhost:8000 |
+| Prometheus | http://localhost:9090 |
+| Documentação da API | http://localhost:8000/docs |
+
+## Endpoints da API
 
 | Endpoint | Descrição |
 |---|---|
-| `/` | Página inicial da aplicação |
+| `/` | Dashboard web |
+| `/api` | Mensagem de funcionamento da aplicação |
 | `/health` | Verificação de saúde do serviço |
 | `/metrics` | Exposição de métricas para o Prometheus |
 | `/docs` | Documentação interativa da API |
@@ -96,7 +133,7 @@ O Prometheus coleta métricas da aplicação a cada 5 segundos.
 
 Interface:
 
-`http://localhost:9090`
+http://localhost:9090
 
 Consulta de disponibilidade:
 
@@ -128,7 +165,8 @@ python -m pytest -v
 
 Os testes verificam:
 
-- Funcionamento da página inicial.
+- Entrega da página inicial em HTML.
+- Funcionamento do endpoint `/api`.
 - Disponibilidade do endpoint `/health`.
 - Exposição das métricas no endpoint `/metrics`.
 
@@ -150,9 +188,11 @@ O arquivo `docs/runbook.md` apresenta procedimentos para diagnosticar e resolver
 ## Aprendizados
 
 - Desenvolvimento de APIs com Python e FastAPI.
+- Construção de interfaces web com HTML, CSS e JavaScript.
 - Containerização de aplicações.
 - Comunicação entre serviços em containers.
 - Monitoramento e exposição de métricas.
+- Construção de dashboards.
 - Testes automatizados.
 - Integração contínua.
 - Versionamento com Git.
@@ -164,3 +204,4 @@ O arquivo `docs/runbook.md` apresenta procedimentos para diagnosticar e resolver
 - Implementação de alertas.
 - Monitoramento de recursos dos containers.
 - Implantação em ambiente de nuvem.
+- Histórico persistente de métricas.

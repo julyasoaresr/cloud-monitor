@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Monitor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-icon">C</span>
+            <span>Cloud Monitor</span>
+        </div>
+
+        <nav>
+            <a href="#" class="active">Visão geral</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="status-dot"></span>
+            Ambiente local
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">MONITORAMENTO</p>
+                <h1>Visão geral</h1>
+                <p class="subtitle">Acompanhe a saúde e a atividade do serviço.</p>
+            </div>
+
+            <div class="live-indicator">
+                <span class="status-dot"></span>
+                Atualização automática
+            </div>
+        </header>
+
+        <section class="service-panel">
+            <div>
+                <p class="eyebrow">SERVIÇO MONITORADO</p>
+                <h2>Cloud Monitor API</h2>
+                <p class="subtitle">Aplicação FastAPI</p>
+            </div>
+
+            <div id="service-status" class="status-badge checking">
+                Verificando...
+            </div>
+        </section>
+
+        <section class="metrics-grid">
+            <article class="metric-card">
+                <p class="metric-label">Status do serviço</p>
+                <h2 id="health-value">--</h2>
+                <p class="metric-description">Verificação de saúde</p>
+            </article>
+
+            <article class="metric-card">
+                <p class="metric-label">Total de requisições</p>
+                <h2 id="requests-value">--</h2>
+                <p class="metric-description">Métrica coletada pela aplicação</p>
+            </article>
+
+            <article class="metric-card">
+                <p class="metric-label">Monitoramento</p>
+                <h2 id="monitoring-value">--</h2>
+                <p class="metric-description">Coleta do Prometheus</p>
+            </article>
+        </section>
+
+        <section class="chart-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">MÉTRICAS</p>
+                    <h2>Atividade de requisições</h2>
+                </div>
+                <span class="chart-caption">Últimas atualizações</span>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="requests-chart"></canvas>
+            </div>
+        </section>
+
+        <footer>
+            Cloud Monitor · Projeto de laboratório para estudos de DevOps
+            <span id="last-update">Aguardando dados...</span>
+        </footer>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
