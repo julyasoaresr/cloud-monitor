@@ -1,8 +1,9 @@
+
 # Cloud Monitor
 
-Um projeto de monitoramento de aplicações desenvolvido com Python, FastAPI, Docker e Prometheus.
+Projeto de monitoramento de aplicações desenvolvido com Python, FastAPI, Docker, Docker Compose e Prometheus.
 
-O objetivo é construir uma aplicação capaz de disponibilizar métricas de funcionamento e permitir o acompanhamento de sua disponibilidade por meio de ferramentas de monitoramento.
+O objetivo é construir uma aplicação capaz de disponibilizar métricas de funcionamento, verificar sua disponibilidade e permitir o acompanhamento de seu estado por meio de ferramentas de monitoramento.
 
 ## Objetivos
 
@@ -12,15 +13,21 @@ O objetivo é construir uma aplicação capaz de disponibilizar métricas de fun
 - Containerizar a aplicação com Docker.
 - Gerenciar serviços com Docker Compose.
 - Configurar o Prometheus para coletar métricas.
+- Implementar testes automatizados.
+- Configurar integração contínua com GitHub Actions.
+- Documentar procedimentos de diagnóstico e recuperação de incidentes.
 
 ## Tecnologias utilizadas
 
-- Python
+- Python 3.13
 - FastAPI
-- Prometheus Client
+- Pytest
+- HTTPX
 - Docker
 - Docker Compose
 - Prometheus
+- Git e GitHub
+- GitHub Actions
 
 ## Arquitetura
 
@@ -33,13 +40,22 @@ O projeto possui dois serviços principais:
 
 ```text
 cloud-monitor/
+├── .github/
+│   └── workflows/
+│       └── tests.yml
 ├── app/
 │   ├── main.py
 │   └── requirements.txt
+├── docs/
+│   └── runbook.md
 ├── prometheus/
 │   └── prometheus.yml
+├── tests/
+│   └── test_main.py
+├── .gitignore
 ├── Dockerfile
 ├── docker-compose.yml
+├── requirements-dev.txt
 └── README.md
 ```
 
@@ -50,7 +66,7 @@ cloud-monitor/
 Clone o repositório:
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/julyasoaresr/cloud-monitor.git
 ```
 
 Entre na pasta:
@@ -78,7 +94,7 @@ docker compose up -d --build
 
 O Prometheus coleta métricas da aplicação a cada 5 segundos.
 
-A interface pode ser acessada em:
+Interface:
 
 `http://localhost:9090`
 
@@ -94,19 +110,57 @@ Consulta de requisições:
 http_requests_total
 ```
 
+## Testes automatizados
+
+O projeto utiliza Pytest para verificar o funcionamento dos endpoints.
+
+Instale as dependências de desenvolvimento:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+Execute os testes:
+
+```bash
+python -m pytest -v
+```
+
+Os testes verificam:
+
+- Funcionamento da página inicial.
+- Disponibilidade do endpoint `/health`.
+- Exposição das métricas no endpoint `/metrics`.
+
+## Integração contínua
+
+O GitHub Actions executa automaticamente os testes quando alterações são enviadas para a branch `main` ou quando um Pull Request é aberto para essa branch.
+
+O pipeline realiza:
+
+1. Download do código.
+2. Configuração do ambiente Python.
+3. Instalação das dependências.
+4. Execução dos testes automatizados.
+
+## Documentação operacional
+
+O arquivo `docs/runbook.md` apresenta procedimentos para diagnosticar e resolver problemas de disponibilidade da aplicação e do Prometheus.
+
 ## Aprendizados
 
-Este projeto foi desenvolvido com foco no aprendizado prático de:
-
+- Desenvolvimento de APIs com Python e FastAPI.
 - Containerização de aplicações.
 - Comunicação entre serviços em containers.
-- Monitoramento de aplicações.
-- Exposição e coleta de métricas.
-- Uso de ambientes Linux e Docker.
+- Monitoramento e exposição de métricas.
+- Testes automatizados.
+- Integração contínua.
+- Versionamento com Git.
+- Documentação de incidentes.
 
 ## Melhorias futuras
 
-- Implementação de testes automatizados.
-- Integração contínua com GitHub Actions.
 - Ampliação das métricas monitoradas.
-- Documentação de incidentes e procedimentos de recuperação.
+- Implementação de alertas.
+- Monitoramento de recursos dos containers.
+- Implantação em ambiente de nuvem.
